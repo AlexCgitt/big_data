@@ -45,3 +45,48 @@ txt <- "un texte"
 print(class(txt))
 
 print(is.character(txt))
+print(is.numeric(txt))
+
+txt <- '42'
+nbr <- as.integer(txt)
+print(is.numeric(nbr))
+
+
+mot <- "petite"
+text1 <- paste("une", mot, "phrase")
+text2 <- paste(text1, "compte", nchar(text1), "lettres")
+print(text1)
+print(text2)
+
+tmp <- 3 / 0
+nsp <- NA
+resultat <- paste(tmp, tmp+1, tmp+nsp)
+print(resultat)
+
+vecteur1 <- c(1, 3, 5, 7, 9)
+vecteur2 <- seq(from=0, to=10, by=2)
+vecteur3 <- 0:10
+vecteur4 <- rep(1:2, 5)
+
+print(vecteur1)
+print(vecteur2)
+print(vecteur3)
+print(vecteur4)
+
+vecteur <- rnorm(10)
+for (i in 1:length(vecteur))
+print(vecteur[i])
+
+v1 <- runif(10)
+v2 <- rpois(10, 12)
+v3 <- rnorm(10)
+matrice <- rbind(v1, v2, v3)
+print(matrice)
+
+v1 <- c(175, 182, 165, 187, 158)
+v2 <- c(19, 18, 21, 22, 20)
+tableau <- data.frame(taille=v1,age=v2)
+names(tableau)
+print(tableau$taille)
+summary(tableau)
+write.table(tableau, "sortie.csv", sep=";")
