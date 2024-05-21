@@ -1,35 +1,35 @@
 #convertir des nombres en lettres.
 nombre <- 123.45 
 text <- as.character(nombre)
-print(text) #le fait de voir des guillemets autour de la valeur indique que c'est une chaîne de caractères.
+#print(text) #le fait de voir des guillemets autour de la valeur indique que c'est une chaîne de caractères.
 
 
 #convertir des lettres en nombres.
 text <- "123.45"
 nombre <- as.numeric(text)
-print(nombre)
+#print(nombre)
 
 #convertir de vecteur à facteur.
 vecteur <- c("haute", "moyenne", "basse")
 facteur <- as.factor(vecteur)
-print(facteur) # cela peut servir pour les données catégorielles.
+#print(facteur) # cela peut servir pour les données catégorielles.
 # on remarque que c'est un facteur car il y a des niveaux.
 
 #convertir de facteur à vecteur.
 facteur <- factor(c("haute", "moyenne", "basse"))
 vecteur <- as.character(facteur)
-print(vecteur)
+#print(vecteur)
 # le facteur est converti en vecteur car il n'y a plus de niveaux.
 
 #convertir de caractère à date.
 date_text <- "2023-01-01"
 date <- as.Date(date_text, format="%Y-%m-%d")
-print(date)
+#print(date)
 
 #convertir de date à caractère.
 date <- as.Date("2023-01-01")
 date_text <- format(date, "%d/%m/%Y")
-print(date_text)
+#print(date_text)
 
 #Exercice : Manipulation et conversion de données en R
 #Etape 1
@@ -61,4 +61,43 @@ donnees$Date_commande <- ifelse(is.na(donnees$Date_commande), Sys.Date()-1, donn
 donnees$StatutCommande <- ifelse(donnees$Montant_total > mean(donnees$Montant_total, na.rm = TRUE), "Elevée", "Normale")
 
 #afficher les données.
-print(donnees)
+#print(donnees)
+
+#ex ecart type
+poid <- c(60, 56, 61, 68, 51, 53, 69, 54)
+ecart_type <- sd(poid)
+#print(ecart_type)
+
+travailleur <- c(4, 5, 6, 3, 2, 8, 0, 1, 7, 9)
+repetition <- c(6, 5, 4, 3, 2, 3, 1, 1, 3, 2)
+
+moyenne <- travailleur %*% repetition / sum(repetition)
+#print(moyenne)
+variance_sans_biais <- sum(repetition * (travailleur - moyenne)^2) / (sum(repetition) - 1)
+#print(variance)
+ecart_type <- sqrt(variance)
+#print(ecart_type)
+
+#exo p53
+heure <- c(12, 17, 22, 27, 32, 37, 42)
+etudiant <- c(2, 12, 23, 60, 77, 38, 8)
+
+moyenne <- heure %*% etudiant / sum(etudiant)
+variance_sans_biais <- sum(etudiant * (heure - moyenne)^2) / (sum(etudiant) - 1)
+ecart_type <- sqrt(variance_sans_biais)
+#print(ecart_type)
+
+# exercice corrélation et covariance
+#simulez des donées pour 48 clients. age varie de 18 à 65 ans,
+n <- 48
+age <- sample(18:65, n, replace = TRUE)#sample permet de générer des valeurs aléatoires.
+depenses <- 100 + 10 *  (age - 18) + rnorm(length(age), mean = 0, sd = 50)#rnorm permet de générer des valeurs aléatoires suivant une loi normale.
+
+#calculer la covariance entre age et depenses.
+covariance <- cov(age, depenses)
+
+#calculer la corrélation entre age et depenses.
+correlation <- cor(age, depenses)
+
+#visualiser les données via un nuage de points.
+plot(age, depenses, xlab = "Age", ylab = "Dépenses", main = "Dépenses en fonction de l'âge")
