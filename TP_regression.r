@@ -11,13 +11,14 @@ data <- data.frame(
 plot(data$prix_produit_x, data$nb_vente_y, xlab = "Prix du produit X", ylab = "Nombre de ventes", main = "Relation entre le prix du produit X et le nombre de ventes")
 
 # question 2 effectuer la matrice de x en fonction de beta
-X <- cbind(1, data$prix_produit_x)
+X <- cbind(1, data$prix_produit_x)# 1 est ajouté pour l'intercept. l'intercept est l'ordonnée à l'origine.
 print(X)
 
 
 # question 3 en utilisant la méthode des moindres carrés ordinaires calculer 𝑏
 b <- solve(t(X) %*% X) %*% t(X) %*% data$nb_vente_y #solve permet de résoudre un système d'équations linéaires.
 # t est la transposée d'une matrice.
+# %*% est l'opérateur de multiplication matricielle.
 # que représente b par rapport à beta ?
 # b est une estimation de beta.
 print(b)
@@ -192,3 +193,38 @@ print(confidence_interval)
 
 
 # exercice 4
+# Création du tableau
+citron_data <- data.frame(
+  "Essai_numero" = 1:12,
+  "Resistance_a_la_rupture" = c(37.8, 22.5, 17.1, 10.8, 7.2, 42.3, 30.2, 19.4, 14.8, 9.5, 32.4, 21.6), # nolint
+  "Epaisseur_du_materiau" = c(4, 4, 3, 2, 1, 6, 4, 4, 1, 1, 3, 4),
+  "Densite" = c(4, 3.6, 3.1, 3.2, 3.0, 3.8, 3.8, 2.9, 3.8, 2.8, 3.4, 2.8)
+)
+
+# Affichage du tableau
+print(citron_data)
+
+# question 1
+# Régression linéaire
+model_4 <- lm(Resistance_a_la_rupture ~ Epaisseur_du_materiau, data = citron_data)
+# Résumé du modèle
+model_summary <- summary(model_4)
+# Coefficients et leurs erreurs-types
+coefficients <- model_summary$coefficients
+# Affichage des coefficients et de leurs erreurs-types
+print(coefficients)
+# Analyse de la variance
+anova_results <- anova(model_4)
+# Affichage des résultats
+print(anova_results)
+
+# question 2
+# Régression linéaire avec la densité comme variable explicative
+model_density <- lm(Resistance_a_la_rupture ~ Densite, data = citron_data)
+# Résumé du modèle
+model_density_summary <- summary(model_density)
+# Coefficients et leurs erreurs-types
+coefficients_density <- model_density_summary$coefficients
+# Affichage des coefficients et de leurs erreurs-types
+print(model_density_summary)
+

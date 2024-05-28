@@ -101,3 +101,11 @@ correlation <- cor(age, depenses)
 
 #visualiser les données via un nuage de points.
 plot(age, depenses, xlab = "Age", ylab = "Dépenses", main = "Dépenses en fonction de l'âge")
+
+
+#utilisation du jeu de données mtcars
+data(mtcars)
+model <- lm(mpg ~ hp + wt + cyl, data = mtcars)
+print(summary(model))
+predictions <- predict(model, mtcars)
+plot(mtcars$mpg, predictions, main = "Prédictions vs. Valeurs réelles", xlab = "Valeurs réelles", ylab = "Prédictions", col = "blue", pch = 19)
